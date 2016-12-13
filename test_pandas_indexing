@@ -1,6 +1,3 @@
 In [140]: df2.loc[criterion & (df2['b'] == 'x'),'b':'c']
-Out[140]: 
-   b         c
-3  x  0.361719
 
 see more material here http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-label
