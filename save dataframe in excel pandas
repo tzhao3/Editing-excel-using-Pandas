@@ -1,21 +1,12 @@
 import pandas as pd
+from openpyxl.utils.dataframe import dataframe_to_rows
+from openpyxl import Workbook
+from openpyxl import load_workbook
 
-# Create a Pandas dataframe from some data.
-df = pd.DataFrame(zip(
-    [1010, 2020, 3030, 2020, 1515, 3030, 4545],
-    [.1, .2, .33, .25, .5, .75, .45],
-    [.1, .2, .33, .25, .5, .75, .45],
-))
-
-# Create a Pandas Excel writer using XlsxWriter as the engine.
-writer = pd.ExcelWriter('test.xlsx', engine='xlsxwriter')
-df.to_excel(writer, sheet_name='Sheet1')
-
-# Get the xlsxwriter objects from the dataframe writer object.
-workbook  = writer.book
-worksheet = writer.sheets['Sheet1']
-
-# Add some cell formats.
-format1 = workbook.add_format({'num_format': '#,##0.00'})
-format2 = workbook.add_format({'num_format': '0%'})
-format3 = workbook.add_format({'num_format': 'h:mm:ss AM/PM'})
+wb=Workbook()
+ws=wb.active
+for r in dataframe_to_rows(df,index=True, header=True):
+    ws.append(r)
+for cell in ws['A']+ws[1]:
+    cell.style='Pandas'
+wb.save('I:\\ImagerySets\\USDA mission\Python codes\\test_write_pandas.xlsx')
